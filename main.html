@@ -12,7 +12,7 @@
         google.charts.setOnLoadCallback(drawRegionsMap);
 
         function drawRegionsMap() {
-            var data = google.visualization.arrayToDataTable([
+            var data = google.visualization.arrayToDataTable([ // <IMPORTANT> need to change the dummy data to sentiment data later
                 ['State', 'Sentiment'],
                 ['Alabama', 57], 
                 ['Alaska', 67], 
