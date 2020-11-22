@@ -1,116 +1,104 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>CopMap</title>
-
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <link rel="stylesheet" href="./style.css">
-    <!-- Bootstrap -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
-    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
+        integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Amiri&family=Noto+Serif+JP:wght@200&display=swap" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Amiri&family=Noto+Serif+JP:wght@200&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"
+        integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
     <script src="https://kit.fontawesome.com/1b6730c88c.js" crossorigin="anonymous"></script>
-
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-    <script type="text/javascript">
-        var data;
-        const Http = new XMLHttpRequest();
-        const url='http://localhost:5000/';
-        Http.open("GET", url);
-        Http.send();
+    
 
-        Http.onreadystatechange = (e) => {
-            data = JSON.parse(Http.responseText);
-            console.log(data);
-        }
-                
+
+
+
+    <title>CopMap</title>
+</head>
+
+
+
+
+<body>
+
+    <script>
+
+        // var state_data;
+        // let xhr = new XMLHttpRequest();
+        // xhr.open('get', 'http://127.0.0.1:5000/v');
+        // xhr.send();
+
+        // xhr.onload = function () {
+        // state_data = JSON.parse(xhr.responseText);
+
+        // console.log(state_data.key1[0]);
+
+        // // document.getElementById("data").innerHTML = lol.key1
+
+        // };
+
         google.charts.load('current', {
             'packages': ['geochart'],
             'mapsApiKey': 'AIzaSyD-9tSrke72PouQMnMX-a7eZSW0jkFMBWY'
         });
         google.charts.setOnLoadCallback(drawRegionsMap);
-
+        // console.log(state_data.key1);
         function drawRegionsMap() {
-            var data = google.visualization.arrayToDataTable([ // <IMPORTANT> need to change the dummy data to sentiment data later
-                ['State', 'Sentiment'],
-                ['Alabama', 57],
-                ['Alaska', 67],
-                ['Arizona', 53],
-                ['Arkansas', 100],
-                ['California', 23],
-                ['Colorado', 31],
-                ['Connecticut', 56],
-                ['Delaware', 25],
-                ['Florida', 39],
-                ['Georgia', 89],
-                ['Hawaii', 85],
-                ['Idaho', 34],
-                ['Illinois', 73],
-                ['Indiana', 43],
-                ['Iowa', 90],
-                ['Kansas', 3],
-                ['Kentucky', 32],
-                ['Louisiana', 63],
-                ['Maine', 72],
-                ['Maryland', 34],
-                ['Massachusetts', 39],
-                ['Michigan', 82],
-                ['Minnesota', 37],
-                ['Mississippi', 67],
-                ['Missouri', 49],
-                ['Montana', 64],
-                ['Nebraska', 83],
-                ['Nevada', 34],
-                ['New Hampshire', 46],
-                ['New Jersey', 26],
-                ['New Mexico', 43],
-                ['New York', 51],
-                ['North Carolina', 70],
-                ['North Dakota', 38],
-                ['Ohio', 28],
-                ['Oklahoma', 85],
-                ['Oregon', 61],
-                ['Pennsylvania', 91],
-                ['Rhode Island', 13],
-                ['South Carolina', 85],
-                ['South Dakota', 73],
-                ['Tennessee', 49],
-                ['Texas', 95],
-                ['Utah', 56],
-                ['Vermont', 40],
-                ['Virginia', 23],
-                ['Washington', 57],
-                ['West Virginia', 45],
-                ['Wisconsin', 80],
-                ['Wyoming', 94]
+            // arrItems = JSON.parse(state_data.key1);
+            var state_data;
+            let xhr = new XMLHttpRequest();
+            xhr.open('get', 'http://127.0.0.1:5000/v');
+            xhr.send();
 
+            xhr.onload = function () {
+                state_data = JSON.parse(xhr.responseText);
 
-            ]);
+                var data = google.visualization.arrayToDataTable(state_data.key1);
 
-            var options = {
-                region: 'US',
-                displayMode: 'regions',
-                resolution: 'provinces',
-                colorAxis: {
-                    colors: ['#00853f', '#ffffff', '#e31b23']
-                },
-                backgroundColor: '#81d4fa',
-                datalessRegionColor: '#f8bbd0',
-                defaultColor: '#f5f5f5',
+                var options = {
+                    region: 'US',
+                    displayMode: 'regions',
+                    resolution: 'provinces',
+                    colorAxis: {
+                        colors: ['#e31b23', '#FFFFFF', '#00853f']
+                    },
+                    backgroundColor: '#81d4fa',
+                    datalessRegionColor: '#f8bbd0',
+                    defaultColor: '#f5f5f5',
+                };
+
+                var chart = new google.visualization.GeoChart(document.getElementById('geochart-colors'));
+                chart.draw(data, options);
+
+                // document.getElementById("data").innerHTML = lol.key1
+
             };
 
-            var chart = new google.visualization.GeoChart(document.getElementById('geochart-colors'));
-            chart.draw(data, options);
+            
         };
+
     </script>
-</head>
-
-<body>
-
     <div class="sidenav">
         <ul class="navbar-nav">
+            <li>
+                <a href="https://github.com/yashgharat/CopSense">
+                    <div class="text-center">
+                        <img src="unknown.png" alt=" company" style = "width: 40px; margin: 0 1.5rem;"><span class="link-text">CopMap</span>
+                    </div>
+                </a>
+            </li>
             <li>
                 <a href="#">
                     <div class="text-center">
@@ -119,23 +107,9 @@
                 </a>
             </li>
             <li>
-                <a href="#">
-                    <div class="text-center">
-                        <i class="nav-icon fas fa-cloud fa-2x"></i><span class="link-text">Cloud</span>
-                    </div>
-                </a>
-            </li>
-            <li>
-                <a href="#">
+                <a href="#tweets">
                     <div class="text-center">
                         <i class="nav-icon fas fa-chart-bar fa-2x"></i><span class="link-text">Stats</span>
-                    </div>
-                </a>
-            </li>
-            <li>
-                <a href="#">
-                    <div class="text-center">
-                        <i class="nav-icon fas fa-info-circle fa-2x"></i><span class="link-text">About</span>
                     </div>
                 </a>
             </li>
@@ -143,13 +117,134 @@
     </div>
 
     <div class="main align-self-center" align="center" style="height:100%; width:100%;">
+        <div class = "chart heading" style="margin-top: 20px; margin-bottom: 30px;">
+            <h2 style = "font-family: 'Noto Serif JP', serif; color: white;">
+                Law Enforcement Sentiment Map
+            </h2>
+
+        </div>
         <div id="geochart-colors" style="margin-top: auto; width: 700px; height: 433px;"></div>
     </div>
 
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha384-nvAa0+6Qg9clwYCGGPpDQLVpLNn0fRaROjHqs13t4Ggj3Ez50XnGQqc/r8MhnRDZ" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js"
+        integrity="sha384-nvAa0+6Qg9clwYCGGPpDQLVpLNn0fRaROjHqs13t4Ggj3Ez50XnGQqc/r8MhnRDZ"
+        crossorigin="anonymous"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"
+        integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd"
+        crossorigin="anonymous"></script>
+
+        <div class = "stuff" style="margin-left: 85px;" id = 'tweets'>
+            <div>
+                <h1 class = "text-center" style = "font-family: 'Noto Serif JP', serif; color: white;">
+                    Tweets
+                </h1>
+            </div>
+            <div class = "row">
+                <div class = "col" style = "font-family: 'Noto Serif JP', serif; color: white;">
+                    <div>
+                        <h3>
+                            Positive tweets
+                        </h3>
+                    </div>
+                    <script>
+                        var state_data;
+                                       var state_data;
+                                        let xhr3 = new XMLHttpRequest();
+                                        xhr3.open('get', 'http://127.0.0.1:5000/v');
+                                        xhr3.send();
+
+                                        xhr3.onload = function () {
+                                            state_data = JSON.parse(xhr3.responseText);
+                                            // console.log(state_data.key3[0][0]) print(item['PosTweet'])
+                                            text = "<ul>";
+                                            state_data.key3.forEach(myFunction);
+                                            text += "</ul>";
+                                            document.getElementById("ptweet").innerHTML = text;
+
+                                            function myFunction(value) {
+                                                console.log(value)
+                                                text += "<li>" + value[0] + "</li>";
+
+                                            }
+                                        };
+                                
+
+                    </script>
+                    <p id = "ptweet"></p>
+                </div>
+
+                <div class="col" style="font-family: 'Noto Serif JP', serif; color: white;">
+                    <div>
+                        <h3>
+                            Negative tweets
+                        </h3>
+                    </div>
+                    <script>
+                        var state_data;
+                        let xhr1 = new XMLHttpRequest();
+                        xhr1.open('get', 'http://127.0.0.1:5000/v');
+                        xhr1.send();
+
+                        xhr1.onload = function () {
+                            state_data = JSON.parse(xhr1.responseText);
+                            // console.log(state_data.key3[0][0]) print(item['PosTweet'])
+                            text = "<ul>";
+                            state_data.key3.forEach(myFunction);
+                            text += "</ul>";
+                            document.getElementById("negtweet").innerHTML = text;
+
+                            function myFunction(value) {
+                                console.log(value)
+                                text += "<li>" + value[0] + "</li>";
+
+                            }
+                        };
+
+
+                    </script>
+                    <p id="negtweet"></p>
+                </div>
+
+                <div class="col text-center" style="font-family: 'Noto Serif JP', serif; color: white;">
+                    <div>
+                        <h3>
+                            Neutral tweets
+                        </h3>
+                    </div>
+                    <script>
+                       var state_data;
+                        let xhr2 = new XMLHttpRequest();
+                        xhr2.open('get', 'http://127.0.0.1:5000/v');
+                        xhr2.send();
+
+                        xhr2.onload = function () {
+                            state_data = JSON.parse(xhr2.responseText);
+                            // console.log(state_data.key3[0][0]) print(item['PosTweet'])
+                            text = "<ul>";
+                            state_data.key3.forEach(myFunction);
+                            text += "</ul>";
+                            document.getElementById("net").innerHTML = text;
+
+                            function myFunction(value) {
+                                console.log(value)
+                                text += "<li>" + value[0] + "</li>";
+
+                            }
+                        };
+
+
+
+                    </script>
+                    <p id="net"></p>
+                </div>
+
+            </div>
+        </div>
 </body>
 
 </html>
+
+
+<!-- [['State', 'Sentiment'],['Alabama', 57],['Alaska', 67],['Arizona', 53],['Arkansas', 100],['California', 23],['Colorado', 31],['Connecticut', 56],['Delaware', 25],['Florida', 39],['Georgia', 89],['Hawaii', 85],['Idaho', 34],['Illinois', 73],['Indiana', 43],['Iowa', 90],['Kansas', 3],['Kentucky', 32],['Louisiana', 63],['Maine', 72],['Maryland', 34],['Massachusetts', 39],['Michigan', 82],['Minnesota', 37],['Mississippi', 67],['Missouri', 49],['Montana', 64],['Nebraska', 83],['Nevada', 34],['New Hampshire', 46],['New Jersey', 26],['New Mexico', 43],['New York', 51],['North Carolina', 70],['North Dakota', 38],['Ohio', 28],['Oklahoma', 85],['Oregon', 61],['Pennsylvania', 91],['Rhode Island', 13],['South Carolina', 85],['South Dakota', 73],['Tennessee', 49],['Texas', 95],['Utah', 56],['Vermont', 40],['Virginia', 23],['Washington', 57],['West Virginia', 45],['Wisconsin', 80],['Wyoming', 94]] -->
