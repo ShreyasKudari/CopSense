@@ -7,6 +7,7 @@ import json
 from numpy.random import randint
 from pymongo import MongoClient
 import helpers
+import main
 
 client = MongoClient('mongodb+srv://shreyas:copsense101@cluster0.2etod.mongodb.net/admin?retryWrites=true&w=majority')
 dbnames = client.list_database_names()
@@ -25,7 +26,7 @@ policedata = PoliceStream()
 azureSent = AzureSentiments() 
 for state_info in locations['cords']:
     #geodata = state_info['latitude']+','+state_info['longitude']+','+'600mi'
-    pos, neg, neut, postweet, negtweet, neutweet = helpers.search_update(policedata,azureSent,state_info,count=5)
+    pos, neg, neut, postweet, negtweet, neutweet = helpers.search_update(policedata,azureSent,state_info,count=3)
     data.update_one({'State':state_info['State']},{"$set":{"Positives":pos,"Negatives":neg,"Neutrals":neut,
                                                             "PosTweet":postweet,"NegTweet":negtweet,"NeuTweet":neutweet
                                                             }},upsert=False)
