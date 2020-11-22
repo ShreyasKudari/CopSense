@@ -11,7 +11,7 @@ class PoliceStream:
         auth.set_access_token(creds.access_token, creds.access_token_secret)
         self.api = tweepy.API(auth)
         
-    def getPoliceTweets(self, hashtag="#Police OR defund", count=4,coordinates="30.289701,-97.7426114,10mi"):
+    def getPoliceTweets(self, hashtag="police OR cops OR #Police OR #police OR co OR police brutality", count=1,coordinates="33.99381794192959,-118.09065927851562,50mi"):
         return tweepy.Cursor(self.api.search,q=hashtag,count=count,lang="en",geocode = coordinates).items(count)
          
 
