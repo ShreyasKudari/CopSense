@@ -1,0 +1,7 @@
+consumer_key = "TSdGWdZbneNZMOjOGAi8MK7Pv"
+consumer_secret = "gKdNBHaumC2L1tZUMYMDEbpSoPdJFOiKMhR4kFbmRvMzKli1vP"
+bearer_token = "AAAAAAAAAAAAAAAAAAAAAAPGJwEAAAAAoD%2FRTaVWvxLpLo6Xp4tWS6MX8LQ%3DZrxEetSLPU6IGjNCbbM8oYio1exJXUQK931ThQm4FCmOpXvmvJ"
+access_token = "2676747553-GNwItv4ioaSOzT8CoBUgLIAw9z5jBFTdAHGLdlP"
+access_token_secret = "SEX1o1UFLeDwqwTsr0PtjYxvMQF9gfyVIF3Wmu92r5LWA"
+subscription_key = "c22a01ae744b4891b1784b843e58e969"
+endpoint = "https://copmap.cognitiveservices.azure.com/"
