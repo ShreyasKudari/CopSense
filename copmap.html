@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>CopMap</title>
+
+    <link rel="stylesheet" href="./style.css">
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
+    <!-- Font Awesome Icons -->
+    <script src="https://kit.fontawesome.com/1b6730c88c.js" crossorigin="anonymous"></script>
+
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+        var data;
+        const Http = new XMLHttpRequest();
+        const url='http://localhost:5000/';
+        Http.open("GET", url);
+        Http.send();
+
+        Http.onreadystatechange = (e) => {
+            data = JSON.parse(Http.responseText);
+            console.log(data);
+        }
+                
+        google.charts.load('current', {
+            'packages': ['geochart'],
+            'mapsApiKey': 'AIzaSyD-9tSrke72PouQMnMX-a7eZSW0jkFMBWY'
+        });
+        google.charts.setOnLoadCallback(drawRegionsMap);
+
+        function drawRegionsMap() {
+            var data = google.visualization.arrayToDataTable([ // <IMPORTANT> need to change the dummy data to sentiment data later
+                ['State', 'Sentiment'],
+                ['Alabama', 57],
+                ['Alaska', 67],
+                ['Arizona', 53],
+                ['Arkansas', 100],
+                ['California', 23],
+                ['Colorado', 31],
+                ['Connecticut', 56],
+                ['Delaware', 25],
+                ['Florida', 39],
+                ['Georgia', 89],
+                ['Hawaii', 85],
+                ['Idaho', 34],
+                ['Illinois', 73],
+                ['Indiana', 43],
+                ['Iowa', 90],
+                ['Kansas', 3],
+                ['Kentucky', 32],
+                ['Louisiana', 63],
+                ['Maine', 72],
+                ['Maryland', 34],
+                ['Massachusetts', 39],
+                ['Michigan', 82],
+                ['Minnesota', 37],
+                ['Mississippi', 67],
+                ['Missouri', 49],
+                ['Montana', 64],
+                ['Nebraska', 83],
+                ['Nevada', 34],
+                ['New Hampshire', 46],
+                ['New Jersey', 26],
+                ['New Mexico', 43],
+                ['New York', 51],
+                ['North Carolina', 70],
+                ['North Dakota', 38],
+                ['Ohio', 28],
+                ['Oklahoma', 85],
+                ['Oregon', 61],
+                ['Pennsylvania', 91],
+                ['Rhode Island', 13],
+                ['South Carolina', 85],
+                ['South Dakota', 73],
+                ['Tennessee', 49],
+                ['Texas', 95],
+                ['Utah', 56],
+                ['Vermont', 40],
+                ['Virginia', 23],
+                ['Washington', 57],
+                ['West Virginia', 45],
+                ['Wisconsin', 80],
+                ['Wyoming', 94]
+
+
+            ]);
+
+            var options = {
+                region: 'US',
+                displayMode: 'regions',
+                resolution: 'provinces',
+                colorAxis: {
+                    colors: ['#00853f', '#ffffff', '#e31b23']
+                },
+                backgroundColor: '#81d4fa',
+                datalessRegionColor: '#f8bbd0',
+                defaultColor: '#f5f5f5',
+            };
+
+            var chart = new google.visualization.GeoChart(document.getElementById('geochart-colors'));
+            chart.draw(data, options);
+        };
+    </script>
+</head>
+
+<body>
+
+    <div class="sidenav">
+        <ul class="navbar-nav">
+            <li>
+                <a href="#">
+                    <div class="text-center">
+                        <i class="nav-icon fas fa-map-marked-alt fa-2x"></i><span class="link-text">Map</span>
+                    </div>
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <div class="text-center">
+                        <i class="nav-icon fas fa-cloud fa-2x"></i><span class="link-text">Cloud</span>
+                    </div>
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <div class="text-center">
+                        <i class="nav-icon fas fa-chart-bar fa-2x"></i><span class="link-text">Stats</span>
+                    </div>
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <div class="text-center">
+                        <i class="nav-icon fas fa-info-circle fa-2x"></i><span class="link-text">About</span>
+                    </div>
+                </a>
+            </li>
+        </ul>
+    </div>
+
+    <div class="main align-self-center" align="center" style="height:100%; width:100%;">
+        <div id="geochart-colors" style="margin-top: auto; width: 700px; height: 433px;"></div>
+    </div>
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha384-nvAa0+6Qg9clwYCGGPpDQLVpLNn0fRaROjHqs13t4Ggj3Ez50XnGQqc/r8MhnRDZ" crossorigin="anonymous"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd" crossorigin="anonymous"></script>
+</body>
+
+</html>
