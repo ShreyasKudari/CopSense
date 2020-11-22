@@ -13,7 +13,7 @@ class PoliceStream:
         
     def getPoliceTweets(self, hashtag="police OR cops OR #Police OR #police OR co OR police brutality", count=1,coordinates="33.99381794192959,-118.09065927851562,50mi"):
         return tweepy.Cursor(self.api.search,q=hashtag,count=count,lang="en",geocode = coordinates).items(count)
-         
+
 
 
 #auth for azure text-analytics
@@ -21,7 +21,8 @@ class AzureSentiments:
     def __init__(self):
         self.subscription_key = creds.subscription_key
         endpoint = creds.endpoint
-        self.sentiment_url = endpoint + "/text/analytics/v3.0/sentiment"
+        # self.sentiment_url = endpoint + "/text/analytics/v3.1-preview.2/sentiment?opinionMining=True"
+        self.keyword_url = endpoint + "/text/analytics/v3.1-preview.2/keyPhrases"
         self.id = 1
     def createDocument(self, parselist, lang="en"):
         self.documents = {"documents":[]}
@@ -29,10 +30,13 @@ class AzureSentiments:
             self.documents['documents'].append({"id": self.id, "language": lang,
                     "text": tweet})
             self.id+=1                
-    def getSentiments(self):
+    # def getSentiments(self):
+    #     headers = {"Ocp-Apim-Subscription-Key": self.subscription_key}
+    #     response = requests.post(self.sentiment_url, headers=headers, json=self.documents)
+    #     return response.json()
+    def getKeyword(self):
         headers = {"Ocp-Apim-Subscription-Key": self.subscription_key}
-        response = requests.post(self.sentiment_url, headers=headers, json=self.documents)
-        return response.json()
-        
+        key_response = requests.post(self.keyword_url, headers=headers, json=self.documents)
+        return key_response.json()
 
 
